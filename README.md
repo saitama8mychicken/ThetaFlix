@@ -1,3 +1,3 @@
 # ThetaFlix
 
-## Project on Theta Blockchain
+## Project on Theta Blockchain and NFTs
