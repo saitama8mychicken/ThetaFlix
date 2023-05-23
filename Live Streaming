@@ -1,0 +1,78 @@
+// HTML Structure
+
+<div class="live-stream-section">
+  <div class="video-container">
+    <video id="video-player" autoplay></video>
+    <div id="viewer-count">0 viewers</div>
+  </div>
+  <div class="chat-container">
+    <div id="chat-messages"></div>
+    <form id="chat-form">
+      <input type="text" id="message-input" placeholder="Enter your message" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
+
+
+// JAVASCRIPT Structure
+
+// Get necessary elements
+const videoPlayer = document.getElementById('video-player');
+const viewerCount = document.getElementById('viewer-count');
+const chatMessages = document.getElementById('chat-messages');
+const chatForm = document.getElementById('chat-form');
+const messageInput = document.getElementById('message-input');
+
+// Simulated server-side logic
+let viewerCountValue = 0;
+
+// Function to update viewer count
+function updateViewerCount() {
+  viewerCount.innerText = `${viewerCountValue} viewer${viewerCountValue === 1 ? '' : 's'}`;
+}
+
+// Function to handle new chat message
+function handleNewChatMessage(message) {
+  const newMessageElement = document.createElement('div');
+  newMessageElement.innerText = message;
+  chatMessages.appendChild(newMessageElement);
+}
+
+// Simulated live video stream
+function startLiveStream() {
+  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    .then((stream) => {
+      videoPlayer.srcObject = stream;
+      // Connect to streaming service or set up your own streaming server here
+      // You would typically use libraries like WebRTC or a streaming platform like Twitch, YouTube Live, etc.
+    })
+    .catch((error) => {
+      console.error('Error accessing user media:', error);
+    });
+}
+
+// Simulated chat functionality
+function sendChatMessage(message) {
+  // Send message to server or perform any necessary chat-related logic
+  handleNewChatMessage(message);
+}
+
+// Event listener for chat form submission
+chatForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const message = messageInput.value;
+  if (message.trim() !== '') {
+    sendChatMessage(message);
+    messageInput.value = '';
+  }
+});
+
+// Simulated viewer count update
+setInterval(() => {
+  viewerCountValue = Math.floor(Math.random() * 100); // Simulated viewer count update
+  updateViewerCount();
+}, 3000); // Update viewer count every 3 seconds
+
+// Start the live stream
+startLiveStream();
