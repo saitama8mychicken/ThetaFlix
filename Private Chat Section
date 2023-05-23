@@ -1,0 +1,77 @@
+// JAVASCRIPT
+
+class User {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+    this.nfts = [];
+  }
+
+  receiveNFT(nft) {
+    this.nfts.push(nft);
+    console.log(`${this.name} received an NFT: ${nft.name}`);
+  }
+}
+
+class PrivateChat {
+  constructor() {
+    this.users = [];
+    this.activeParticipants = [];
+  }
+
+  addUser(user) {
+    this.users.push(user);
+    console.log(`${user.name} joined the private chat.`);
+  }
+
+  removeUser(userId) {
+    this.users = this.users.filter((user) => user.id !== userId);
+    console.log(`User with ID ${userId} left the private chat.`);
+  }
+
+  startAirdrop(nft) {
+    this.activeParticipants.forEach((participant) => {
+      participant.receiveNFT(nft);
+    });
+    console.log(`Airdrop complete for NFT: ${nft.name}`);
+  }
+
+  setActiveParticipants(userIds) {
+    this.activeParticipants = this.users.filter((user) => userIds.includes(user.id));
+  }
+}
+
+// Create user instances
+const user1 = new User(1, "John");
+const user2 = new User(2, "Jane");
+const user3 = new User(3, "Bob");
+
+// Create a private chat instance
+const privateChat = new PrivateChat();
+
+// Add users to the private chat
+privateChat.addUser(user1);
+privateChat.addUser(user2);
+privateChat.addUser(user3);
+
+// Set active participants for airdrop
+privateChat.setActiveParticipants([user1.id, user2.id]);
+
+// Define an NFT for airdrop
+const nftAirdrop = {
+  id: 1,
+  name: "Airdrop NFT",
+  creator: "NFT Creator",
+};
+
+// Start the airdrop for active participants
+privateChat.startAirdrop(nftAirdrop);
+
+// Print user1's received NFTs
+console.log(`${user1.name}'s NFTs:`, user1.nfts);
+
+// Print user2's received NFTs
+console.log(`${user2.name}'s NFTs:`, user2.nfts);
+
+// Print user3's received NFTs
+console.log(`${user3.name}'s NFTs:`, user3.nfts);

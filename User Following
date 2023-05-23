@@ -1,0 +1,90 @@
+// JAVASCRIPT 
+
+// User class representing a user in the social network
+class User {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+    this.followers = [];
+    this.following = [];
+    this.videos = [];
+  }
+
+  follow(user) {
+    if (this.following.includes(user)) {
+      console.log(`${this.name} is already following ${user.name}.`);
+    } else {
+      this.following.push(user);
+      user.followers.push(this);
+      console.log(`${this.name} is now following ${user.name}.`);
+    }
+  }
+
+  likeVideo(video) {
+    if (this.videos.includes(video)) {
+      console.log(`${this.name} cannot like their own video.`);
+    } else {
+      video.likes.push(this);
+      console.log(`${this.name} liked the video.`);
+    }
+  }
+
+  shareVideo(video, user) {
+    if (this.videos.includes(video)) {
+      console.log(`${this.name} cannot share their own video.`);
+    } else if (!this.following.includes(user)) {
+      console.log(`${this.name} can only share videos with users they follow.`);
+    } else {
+      user.videos.push(video);
+      console.log(`${this.name} shared the video with ${user.name}.`);
+    }
+  }
+
+  connectWith(user) {
+    if (this.followers.includes(user) || this.following.includes(user)) {
+      console.log(`${this.name} is already connected with ${user.name}.`);
+    } else {
+      this.follow(user);
+      user.follow(this);
+      console.log(`${this.name} and ${user.name} are now connected.`);
+    }
+  }
+}
+
+// Video class representing a video in the social network
+class Video {
+  constructor(id, title) {
+    this.id = id;
+    this.title = title;
+    this.likes = [];
+  }
+}
+
+// Create users
+const user1 = new User(1, "John");
+const user2 = new User(2, "Jane");
+const user3 = new User(3, "Mark");
+
+// Create videos
+const video1 = new Video(1, "Funny Cat Compilation");
+const video2 = new Video(2, "Travel Vlog");
+const video3 = new Video(3, "Cooking Tutorial");
+
+// User interactions
+user1.follow(user2);
+user2.follow(user3);
+
+user1.likeVideo(video2);
+user2.likeVideo(video1);
+
+user1.shareVideo(video1, user2);
+user2.shareVideo(video2, user1);
+
+user1.connectWith(user3);
+
+console.log(user1);
+console.log(user2);
+console.log(user3);
+console.log(video1);
+console.log(video2);
+console.log(video3);

@@ -1,0 +1,109 @@
+// HTML Structure
+
+<div class="video-section">
+  <h2>Video Title</h2>
+  <div id="video-player"></div>
+
+  <div class="interactions">
+    <button id="like-button">Like</button>
+    <button id="dislike-button">Dislike</button>
+    <button id="subscribe-button">Subscribe</button>
+  </div>
+
+  <h2>Comments</h2>
+  <div id="comments-container"></div>
+
+  <h2>New Comment</h2>
+  <form id="comment-form">
+    <input type="text" id="comment-input" placeholder="Write a comment" required />
+    <button type="submit">Post</button>
+  </form>
+</div>
+
+// JAVASCRIPT Structure
+
+// Sample video and comment data
+const video = {
+  id: 1,
+  title: 'Video Title',
+};
+
+const comments = [
+  {
+    id: 1,
+    videoId: 1,
+    text: 'First comment!',
+  },
+  // Add more comment objects
+];
+
+// Get necessary elements
+const videoPlayer = document.getElementById('video-player');
+const likeButton = document.getElementById('like-button');
+const dislikeButton = document.getElementById('dislike-button');
+const subscribeButton = document.getElementById('subscribe-button');
+const commentsContainer = document.getElementById('comments-container');
+const commentForm = document.getElementById('comment-form');
+const commentInput = document.getElementById('comment-input');
+
+// Function to render video player
+function renderVideoPlayer() {
+  videoPlayer.innerHTML = `<iframe src="https://www.youtube.com/embed/${video.id}" frameborder="0" allowfullscreen></iframe>`;
+}
+
+// Function to render comments
+function renderComments() {
+  commentsContainer.innerHTML = '';
+
+  comments.forEach((comment) => {
+    if (comment.videoId === video.id) {
+      const commentElement = document.createElement('div');
+      commentElement.classList.add('comment');
+      commentElement.textContent = comment.text;
+
+      commentsContainer.appendChild(commentElement);
+    }
+  });
+}
+
+// Function to handle comment submission
+function handleCommentSubmission(event) {
+  event.preventDefault();
+  const commentText = commentInput.value;
+
+  if (commentText.trim() !== '') {
+    const newComment = {
+      id: Date.now(), // Generate a unique ID (you can use any other approach)
+      videoId: video.id,
+      text: commentText,
+    };
+
+    comments.push(newComment);
+    renderComments();
+
+    // Clear the comment input field
+    commentInput.value = '';
+
+    // Send the new comment to the server via WebSocket for real-time updates
+    // WebSocket code goes here
+  }
+}
+
+// Event listeners for like, dislike, and subscribe buttons
+likeButton.addEventListener('click', () => {
+  // Update the like count and send the interaction to the server via WebSocket
+});
+
+dislikeButton.addEventListener('click', () => {
+  // Update the dislike count and send the interaction to the server via WebSocket
+});
+
+subscribeButton.addEventListener('click', () => {
+  // Update the subscription status and send the subscription request to the server via WebSocket
+});
+
+// Event listener for comment form submission
+commentForm.addEventListener('submit', handleCommentSubmission);
+
+// Render initial video player and comments
+renderVideo

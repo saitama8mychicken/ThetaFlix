@@ -1,0 +1,53 @@
+// Video Player its only integrate with HTML5 companent as FRONTEND
+
+import React, { useRef } from 'react';
+
+const VideoPlayer = () => {
+  const videoRef = useRef(null);
+
+  const handlePlay = () => {
+    videoRef.current.play();
+  };
+
+  const handlePause = () => {
+    videoRef.current.pause();
+  };
+
+  const handleSeek = (time) => {
+    videoRef.current.currentTime = time;
+  };
+
+  const handleVolumeChange = (volume) => {
+    videoRef.current.volume = volume;
+  };
+
+  return (
+    <div>
+      <video ref={videoRef} controls>
+        <source src="/path/to/video.mp4" type="video/mp4" />
+      </video>
+
+      <div>
+        <button onClick={handlePlay}>Play</button>
+        <button onClick={handlePause}>Pause</button>
+        <input
+          type="range"
+          min={0}
+          max={videoRef.current?.duration || 0}
+          step={0.1}
+          onChange={(e) => handleSeek(e.target.valueAsNumber)}
+        />
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.1}
+          defaultValue={1}
+          onChange={(e) => handleVolumeChange(e.target.valueAsNumber)}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default VideoPlayer;

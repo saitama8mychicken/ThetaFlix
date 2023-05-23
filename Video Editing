@@ -1,0 +1,101 @@
+// HTML Structure
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Video Editing</title>
+  </head>
+  <body>
+    <input type="file" id="videoInput" accept="video/*" />
+    <button id="trimButton" disabled>Trim</button>
+    <button id="mergeButton" disabled>Merge</button>
+    <video id="videoPlayer" controls></video>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+// JAVASCRIPT Structure
+
+document.addEventListener("DOMContentLoaded", () => {
+  const videoInput = document.getElementById("videoInput");
+  const trimButton = document.getElementById("trimButton");
+  const mergeButton = document.getElementById("mergeButton");
+  const videoPlayer = document.getElementById("videoPlayer");
+
+  let videoFiles = [];
+
+  videoInput.addEventListener("change", (event) => {
+    videoFiles = event.target.files;
+    if (videoFiles.length > 0) {
+      trimButton.disabled = false;
+      mergeButton.disabled = false;
+      videoPlayer.src = URL.createObjectURL(videoFiles[0]);
+    }
+  });
+
+  trimButton.addEventListener("click", () => {
+    if (videoFiles.length > 0) {
+      const video = videoPlayer;
+
+      // Set the start and end time for trimming (in seconds)
+      const startTime = 10;
+      const endTime = 20;
+
+      // Create a new video element to store the trimmed video
+      const trimmedVideo = document.createElement("video");
+
+      // Load the original video file
+      trimmedVideo.src = URL.createObjectURL(videoFiles[0]);
+
+      // Seek to the start time
+      trimmedVideo.currentTime = startTime;
+
+      // Create a new MediaSource object to capture the trimmed video
+      const mediaSource = new MediaSource();
+      const trimmedChunks = [];
+
+      mediaSource.addEventListener("sourceopen", () => {
+        const sourceBuffer = mediaSource.addSourceBuffer(
+          'video/webm; codecs="vp8"'
+        );
+
+        sourceBuffer.addEventListener("updateend", () => {
+          if (trimmedVideo.currentTime >= endTime) {
+            // End trimming when the end time is reached
+            mediaSource.endOfStream();
+            videoPlayer.src = URL.createObjectURL(mediaSource);
+          } else {
+            // Continue capturing video chunks until the end time
+            sourceBuffer.appendBuffer(trimmedChunks.shift());
+          }
+        });
+
+        const captureVideoChunk = () => {
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob((blob) => {
+            trimmedChunks.push(blob);
+            video.currentTime += 0.5; // Adjust the time interval as desired
+            if (video.currentTime < endTime) {
+              captureVideoChunk();
+            }
+          }, "video/webm");
+        };
+
+        captureVideoChunk();
+      });
+
+      videoPlayer.src = URL.createObjectURL(mediaSource);
+    }
+  });
+
+  mergeButton.addEventListener("click", () => {
+    if (videoFiles.length > 1) {
+      const videoUrls = [];
+
+      for (let i = 0; i < videoFiles.length; i++) {
+        videoUrls.push(URL.createObjectURL(videoFiles[i]));
+     

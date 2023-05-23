@@ -1,0 +1,57 @@
+// HTML5 Structure
+
+<div class="short-video-section">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <!-- Short video slides -->
+      <div class="swiper-slide">
+        <video class="short-video" src="video1.mp4" loop></video>
+        <div class="engagement-actions">
+          <button class="like-button">Like</button>
+          <button class="comment-button">Comment</button>
+          <button class="share-button">Share</button>
+        </div>
+      </div>
+      <!-- Add more video slides as needed -->
+    </div>
+  </div>
+</div>
+
+
+// JAVASCRIPT Structure
+
+// Initialize Swiper.js
+const swiper = new Swiper('.swiper-container', {
+  direction: 'vertical',
+  loop: true,
+  grabCursor: true,
+  slidesPerView: 1,
+  spaceBetween: 10,
+  // Add more Swiper.js options as needed
+});
+
+// Add event listeners for engagement actions
+const engagementActions = document.querySelectorAll('.engagement-actions');
+
+engagementActions.forEach((actions) => {
+  const likeButton = actions.querySelector('.like-button');
+  const commentButton = actions.querySelector('.comment-button');
+  const shareButton = actions.querySelector('.share-button');
+
+  likeButton.addEventListener('click', handleLike);
+  commentButton.addEventListener('click', handleComment);
+  shareButton.addEventListener('click', handleShare);
+});
+
+// Define event handlers for engagement actions
+function handleLike(event) {
+  // Logic for handling like action
+}
+
+function handleComment(event) {
+  // Logic for handling comment action
+}
+
+function handleShare(event) {
+  // Logic for handling share action
+}
