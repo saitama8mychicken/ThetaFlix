@@ -1,0 +1,92 @@
+// HTML Structure
+
+<div class="video-management-section">
+  <h2>My Videos</h2>
+  <div id="video-list"></div>
+</div>
+
+
+// JAVASCRIPT Structure
+
+// Sample video data
+let videos = [
+  {
+    id: 1,
+    title: 'Video 1',
+    metadata: {
+      views: 1000,
+      likes: 500,
+      dislikes: 100,
+      duration: '10:30',
+    },
+  },
+  {
+    id: 2,
+    title: 'Video 2',
+    metadata: {
+      views: 2000,
+      likes: 1000,
+      dislikes: 200,
+      duration: '15:45',
+    },
+  },
+  // Add more video objects
+];
+
+// Get necessary elements
+const videoList = document.getElementById('video-list');
+
+// Function to render video list
+function renderVideoList() {
+  videoList.innerHTML = '';
+
+  videos.forEach((video) => {
+    const videoElement = document.createElement('div');
+    videoElement.classList.add('video');
+    videoElement.innerHTML = `
+      <h3>${video.title}</h3>
+      <p>Views: ${video.metadata.views}</p>
+      <p>Likes: ${video.metadata.likes}</p>
+      <p>Dislikes: ${video.metadata.dislikes}</p>
+      <p>Duration: ${video.metadata.duration}</p>
+      <button class="edit-button" data-video-id="${video.id}">Edit</button>
+      <button class="delete-button" data-video-id="${video.id}">Delete</button>
+      <button class="analytics-button" data-video-id="${video.id}">Analytics</button>
+    `;
+
+    const editButton = videoElement.querySelector('.edit-button');
+    editButton.addEventListener('click', () => editVideoMetadata(video.id));
+
+    const deleteButton = videoElement.querySelector('.delete-button');
+    deleteButton.addEventListener('click', () => deleteVideo(video.id));
+
+    const analyticsButton = videoElement.querySelector('.analytics-button');
+    analyticsButton.addEventListener('click', () => viewVideoAnalytics(video.id));
+
+    videoList.appendChild(videoElement);
+  });
+}
+
+// Function to edit video metadata
+function editVideoMetadata(videoId) {
+  // Retrieve video object by videoId and display an edit form to update metadata
+  // Update the videos array with the new metadata
+  // Save the updated videos to storage or send to the server
+
+  renderVideoList();
+}
+
+// Function to delete a video
+function deleteVideo(videoId) {
+  videos = videos.filter((video) => video.id !== videoId);
+  renderVideoList();
+}
+
+// Function to view video analytics
+function viewVideoAnalytics(videoId) {
+  // Retrieve video object by videoId and display analytics data
+  // You can implement a separate analytics section or modal to display analytics information
+}
+
+// Render initial video list
+renderVideoList();
