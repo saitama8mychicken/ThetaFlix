@@ -1,0 +1,65 @@
+// JAVASCRIPT
+
+// User class representing a user in the system
+class User {
+  constructor(id, name, isPremium) {
+    this.id = id;
+    this.name = name;
+    this.isPremium = isPremium;
+    this.stickers = [];
+  }
+
+  receiveSticker(sticker) {
+    this.stickers.push(sticker);
+    console.log(`${this.name} received a sticker: ${sticker}`);
+  }
+}
+
+// Chat class representing a chat conversation
+class Chat {
+  constructor() {
+    this.users = [];
+  }
+
+  addUser(user) {
+    this.users.push(user);
+  }
+
+  sendSticker(senderId, receiverId, sticker) {
+    const sender = this.users.find((user) => user.id === senderId);
+    const receiver = this.users.find((user) => user.id === receiverId);
+
+    if (sender && receiver) {
+      if (sender.isPremium) {
+        receiver.receiveSticker(sticker);
+      } else {
+        console.log(`${sender.name} is not a premium user and cannot send stickers.`);
+      }
+    } else {
+      console.log(`Invalid sender or receiver ID.`);
+    }
+  }
+}
+
+// Create a chat instance
+const chat = new Chat();
+
+// Create users
+const user1 = new User(1, "John", true);
+const user2 = new User(2, "Jane", false);
+
+// Add users to the chat
+chat.addUser(user1);
+chat.addUser(user2);
+
+// Send a sticker from user1 to user2
+chat.sendSticker(user1.id, user2.id, "Smiley");
+
+// Send a sticker from user2 to user1
+chat.sendSticker(user2.id, user1.id, "Heart");
+
+// Print user1's stickers
+console.log(`${user1.name}'s Stickers:`, user1.stickers);
+
+// Print user2's stickers
+console.log(`${user2.name}'s Stickers:`, user2.stickers);
