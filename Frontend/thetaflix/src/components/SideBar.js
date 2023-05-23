@@ -247,7 +247,7 @@ const SideBar = () => {
             alt="shorts-logo"
             className="w-10 mb-1"
           />
-          <span>Shorts</span>
+          <span>Theta</span>
         </div>
         <div className="subscriptions py-4 flex flex-col items-center  hover:bg-zinc-200  dark:hover:bg-zinc-700  w-full rounded-md">
           <MdOutlineSubscriptions size="1.5rem" className="mb-1" />
@@ -274,7 +274,7 @@ const SideBar = () => {
             alt="shorts-logo"
             className="w-10 mb-1"
           />
-          <span>Shorts</span>
+          <span>Theta</span>
         </div>
         <div className="subscriptions py-4 flex flex-col items-center  hover:bg-zinc-200 dark:hover:bg-zinc-700 w-full rounded-md cursor-pointer">
           <MdOutlineSubscriptions size="1.5rem" className="mb-1" />

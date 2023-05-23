@@ -3,7 +3,7 @@
 
 
 # 🎉 THETAFLIX
-THETAFLIX is a web application built using React.js that allows users to watch and upload videos. It is similar to YouTube and uses the YouTube API to show videos and provide an experience similar to YouTube. The application also comes with features such as a video summarizer using Chat GPT, cache network calls using React Query to reduce the number of requests to the API, a highly optimized search feature using debouncing and caching, responsive design, and dark mode.
+THETAFLIX is a web application built using React.js that allows users to watch and upload videos. It is similar to YouTube and uses the Theta Network API to show videos and provide an experience similar to YouTube. The application also comes with features such as a video summarizer using Chat GPT, cache network calls using React Query to reduce the number of requests to the API, a highly optimized search feature using debouncing and caching, responsive design, and dark mode.
 
 
 ## 💻 Demo
@@ -22,9 +22,9 @@ A live demo of the application is available at:\
 
 ## 🚀 Features
 
-### **YouTube API Integration**
+### **Theta Network API Integration**
 
-The THETAFLIX application uses the YouTube API to show videos and provide a user experience similar to YouTube. The integration with the YouTube API ensures that the application has access to a vast library of videos, making it a comprehensive video streaming platform.
+The THETAFLIX application uses the Theta Network API to show videos and provide a user experience similar to YouTube. The integration with the Theta Network Video API ensures that the application has access to a vast library of videos, gets benifit of web3 security, making it a latest comprehensive video streaming platform.
 
 ### **Cache Network Calls using React Query**
 
