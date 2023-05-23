@@ -9,7 +9,7 @@ export const tags = [
   'Coding',
   'Blockchain',
   'Crypto',
-  'HTML',
+  'NFT',
   'Live',
   'THETA NETWORKS',
   'THETA',
