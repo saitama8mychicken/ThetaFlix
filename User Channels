@@ -1,0 +1,91 @@
+// HTML Structure
+
+<div class="channel-section">
+  <h2>Create Channel</h2>
+  <form id="create-channel-form">
+    <input type="text" id="channel-name-input" placeholder="Enter channel name" required />
+    <button type="submit">Create</button>
+  </form>
+
+  <h2>My Channels</h2>
+  <div id="channel-list"></div>
+</div>
+
+
+// JAVASCRIPT Structure
+
+// Array to store user channels
+let channels = [];
+
+// Get necessary elements
+const createChannelForm = document.getElementById('create-channel-form');
+const channelNameInput = document.getElementById('channel-name-input');
+const channelList = document.getElementById('channel-list');
+
+// Function to create a new channel
+function createChannel(name) {
+  const channel = {
+    id: Date.now(), // Generate a unique ID (you can use any other approach)
+    name,
+    videos: [],
+    subscribers: [],
+  };
+
+  channels.push(channel);
+  saveChannelsToLocalStorage();
+  renderChannels();
+}
+
+// Function to delete a channel
+function deleteChannel(channelId) {
+  channels = channels.filter((channel) => channel.id !== channelId);
+  saveChannelsToLocalStorage();
+  renderChannels();
+}
+
+// Function to save channels to local storage
+function saveChannelsToLocalStorage() {
+  localStorage.setItem('channels', JSON.stringify(channels));
+}
+
+// Function to retrieve channels from local storage
+function retrieveChannelsFromLocalStorage() {
+  const storedChannels = localStorage.getItem('channels');
+  if (storedChannels) {
+    channels = JSON.parse(storedChannels);
+  }
+}
+
+// Function to render channels
+function renderChannels() {
+  channelList.innerHTML = '';
+
+  channels.forEach((channel) => {
+    const channelElement = document.createElement('div');
+    channelElement.classList.add('channel');
+    channelElement.innerHTML = `
+      <h3>${channel.name}</h3>
+      <p>Subscribers: ${channel.subscribers.length}</p>
+      <button class="delete-button" data-channel-id="${channel.id}">Delete</button>
+    `;
+
+    const deleteButton = channelElement.querySelector('.delete-button');
+    deleteButton.addEventListener('click', () => deleteChannel(channel.id));
+
+    channelList.appendChild(channelElement);
+  });
+}
+
+// Event listener for create channel form submission
+createChannelForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const channelName = channelNameInput.value;
+  if (channelName.trim() !== '') {
+    createChannel(channelName);
+    channelNameInput.value = '';
+  }
+});
+
+// Initialize the app
+retrieveChannelsFromLocalStorage();
+renderChannels();
