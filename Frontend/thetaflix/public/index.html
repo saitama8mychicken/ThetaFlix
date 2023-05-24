@@ -37,10 +37,8 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-
-    </div>
-    <video id="my-player" controls></video>
+    <div id="root"></div>
+    <!-- <video id="my-player" controls></video> -->
     
     <!--
       This HTML file is a template.
@@ -56,26 +54,25 @@
   <script>
     const optionalHlsOpts = null;
     const optionalThetaOpts = {
-       allowRangeRequests: true, // false if cdn does not support range headers  
+      allowRangeRequests: true, // false if cdn does not support range headers  
     };
     const player = window.player = videojs('my-player', {
-       autoplay: false,
-       muted: false,
-       controls: true,
-       techOrder: ["theta_hlsjs", "html5"],
-       sources: [{
-          src: "https://media.thetavideoapi.com/srvacc_3z8e4t0g2jkfr57xsz3gqvpj0/video_kzh225ce37vvpsjvpqt8kh8ki5/1631659816016.m3u8",
-          type: "application/vnd.apple.mpegurl",
-          label: "1080p"
-       }],
-       theta_hlsjs: {
-          videoId: "a video id",
-          userId: "a user id",
-          onThetaReady: null, // optional listener
-          onStreamReady: null, // optional listener
-          hlsOpts: optionalHlsOpts,
-          thetaOpts: optionalThetaOpts,
-       }
-    });
- </script>
+            techOrder: ["theta_hlsjs", "html5"],
+            sources: [{
+              src: "YOUR_VIDEO_URL",
+              type: "application/vnd.apple.mpegurl",
+              label: "1080p"
+            }],
+            theta_hlsjs: {
+                videoId: "YOUR_INTERNAL_VIDEO_ID",
+                userId: "YOUR_AUTHED_USER_ID (optional)", 
+                walletUrl: "wss://api-wallet-service.thetatoken.org/theta/ws",
+                onWalletAccessToken: getWalletAccessToken,
+                onThetaReady: null, // optional listener
+                onStreamReady: null, // optional listener
+                hlsOpts: optionalHlsOpts,
+                thetaOpts: optionalThetaOpts,
+            }
+        });
+  </script>
 </html>
