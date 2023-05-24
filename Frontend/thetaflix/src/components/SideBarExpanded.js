@@ -85,7 +85,7 @@ const SideBarExpanded = () => {
               alt="shorts-logo"
               className="w-10 mb-1 mr-2 -ml-2"
             />
-            <span>Shorts</span>
+            <span>Theta</span>
           </div>
           <div className="subscriptions py-2 px-4  flex items-center  hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full rounded-lg cursor-pointer">
             <MdOutlineSubscriptions size="1.5rem" className="mb-1 mr-4" />

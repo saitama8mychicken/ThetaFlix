@@ -7,11 +7,8 @@ const Comment = ({ commentData }) => {
   const [showReplies, setShowReplies] = useState(false);
   return (
     <div className='comment_wrapper mb-6'>
-      <div
-        className={`topLevelComment_wrapper flex gap-4 items-center text-sm `}
-      >
-        <img
-          className='w-10 flex-none  object-contain rounded-full'
+      <div className={`topLevelComment_wrapper flex gap-4 items-center text-sm `} >
+        <img className='w-10 flex-none  object-contain rounded-full'
           src={
             commentData?.snippet?.topLevelComment?.snippet
               ?.authorProfileImageUrl ??
@@ -32,7 +29,7 @@ const Comment = ({ commentData }) => {
             <div className='comment_time'>
               {moment(
                 commentData?.snippet?.topLevelComment?.snippet?.publishedAt ??
-                  commentData?.snippet?.publishedAt
+                commentData?.snippet?.publishedAt
               ).fromNow()}
             </div>
           </div>
@@ -48,7 +45,7 @@ const Comment = ({ commentData }) => {
               <div className='like_count '>
                 {Intl.NumberFormat('en', { notation: 'compact' }).format(
                   commentData?.snippet?.topLevelComment?.snippet?.likeCount ??
-                    commentData.snippet.likeCount
+                  commentData.snippet.likeCount
                 )}
               </div>
             </button>
