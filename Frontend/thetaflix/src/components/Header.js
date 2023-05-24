@@ -115,7 +115,7 @@ const Header = () => {
               src={theme === "light" ? logo_light_theme : logo_dark_theme}
               alt="logo"
               title="logo"
-              className="w-52 pl-4 lg:w-36"
+              className="w-32 pl-8 lg:w-20"
             />
           </a>
         </div>

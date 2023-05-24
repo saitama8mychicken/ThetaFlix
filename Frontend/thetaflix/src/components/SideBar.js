@@ -83,9 +83,9 @@ const SideBar = () => {
             <img
               src={shortsLogo_light_theme}
               alt="shorts-logo"
-              className="w-10 mb-1 mr-2 -ml-2"
+              className="w-5 mb-2 mr-5 -ml-0"
             />
-            <span>Shorts</span>
+            <span>Theta Shorts</span>
           </div>
           <div className="subscriptions py-2 px-4  flex items-center  hover:bg-zinc-100 dark:hover:bg-zinc-700  w-full rounded-lg cursor-pointer">
             <MdOutlineSubscriptions size="1.5rem" className="mb-1 mr-4" />
@@ -230,7 +230,7 @@ const SideBar = () => {
             <div className="cursor-pointer ml-1">How THETAFLIX works</div>
             <div className="cursor-pointer ml-1">Test new features</div>
           </div>
-          <div className="px-4 py-2 text-gray-400"> &copy; 2023 Google LLC</div>
+          <div className="px-4 py-2 text-gray-400"> &copy; 2023 THETAFILX</div>
         </div>
       </div>
     ) : (
@@ -247,7 +247,7 @@ const SideBar = () => {
             alt="shorts-logo"
             className="w-10 mb-1"
           />
-          <span>Shorts</span>
+          <span>Theta</span>
         </div>
         <div className="subscriptions py-4 flex flex-col items-center  hover:bg-zinc-200  dark:hover:bg-zinc-700  w-full rounded-md">
           <MdOutlineSubscriptions size="1.5rem" className="mb-1" />
@@ -274,7 +274,7 @@ const SideBar = () => {
             alt="shorts-logo"
             className="w-10 mb-1"
           />
-          <span>Shorts</span>
+          <span>Theta</span>
         </div>
         <div className="subscriptions py-4 flex flex-col items-center  hover:bg-zinc-200 dark:hover:bg-zinc-700 w-full rounded-md cursor-pointer">
           <MdOutlineSubscriptions size="1.5rem" className="mb-1" />
