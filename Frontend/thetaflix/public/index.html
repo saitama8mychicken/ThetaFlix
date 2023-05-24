@@ -26,16 +26,22 @@
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+    <script src='https://vjs.zencdn.net/7.15.4/video.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@0.12.4"></script>
+    <script src="https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js"></script>
+    <script src="https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js"></script>
+    <script src="https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js"></script>
     <title>THETAFLIX</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+
+    </div>
+    <video id="my-player" controls></video>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -47,4 +53,29 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+    const optionalHlsOpts = null;
+    const optionalThetaOpts = {
+       allowRangeRequests: true, // false if cdn does not support range headers  
+    };
+    const player = window.player = videojs('my-player', {
+       autoplay: false,
+       muted: false,
+       controls: true,
+       techOrder: ["theta_hlsjs", "html5"],
+       sources: [{
+          src: "https://media.thetavideoapi.com/srvacc_3z8e4t0g2jkfr57xsz3gqvpj0/video_kzh225ce37vvpsjvpqt8kh8ki5/1631659816016.m3u8",
+          type: "application/vnd.apple.mpegurl",
+          label: "1080p"
+       }],
+       theta_hlsjs: {
+          videoId: "a video id",
+          userId: "a user id",
+          onThetaReady: null, // optional listener
+          onStreamReady: null, // optional listener
+          hlsOpts: optionalHlsOpts,
+          thetaOpts: optionalThetaOpts,
+       }
+    });
+ </script>
 </html>
