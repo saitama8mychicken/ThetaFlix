@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get TFuel Tokens for Playing Videos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    #balanceContainer {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>Get TFuel Tokens for Playing Videos</h2>
+  <div id="balanceContainer">
+    <strong>TFuel Balance: </strong>
+    <span id="balance">0</span> TFuel
+  </div>
+  <button id="getTFuelBtn">Get TFuel Tokens</button>
+
+  <script src="https://sdk.thetatoken.org/theta-js/theta.js"></script>
+  <script>
+    const thetaAPIEndpoint = 'https://api.thetatoken.org';
+    const thetaWalletAddress = 'YOUR_THETA_WALLET_ADDRESS';
+    const thetaPrivateKey = 'YOUR_THETA_PRIVATE_KEY';
+
+    const getTFuelBtn = document.getElementById('getTFuelBtn');
+    const balanceContainer = document.getElementById('balance');
+
+    getTFuelBtn.addEventListener('click', async () => {
+      const theta = new Theta(thetaAPIEndpoint);
+      await theta.connect();
+
+      const tfuelBalance = await theta.Wallet.getTFuelBalance(thetaWalletAddress);
+      balanceContainer.textContent = tfuelBalance.toString();
+    });
+  </script>
+</body>
+</html>
