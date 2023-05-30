@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube-like Play Features</title>
+
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #videoPlayer {
+      margin-top: 20px;
+    }
+
+    #videoPlayer video {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h2>Upload Video</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="videoFile" accept="video/*" />
+    <button type="submit">Upload</button>
+  </form>
+
+  <div id="videoPlayer"></div>
+
+
+
+  <div id="balanceContainer">
+    <strong>TFuel Balance: </strong>
+    <span id="balance">0</span> TFuel
+  </div>
+  <button id="getTFuelBtn">Get TFuel Tokens</button>
+
+  <script src="https://sdk.thetatoken.org/theta-js/theta.js"></script>
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const videoFileInput = document.getElementById('videoFile');
+    const videoPlayerContainer = document.getElementById('videoPlayer');
+
+    const thetaAPIEndpoint = 'https://api.thetatoken.org';
+    const thetaWalletAddress = 'YOUR_THETA_WALLET_ADDRESS';
+    const thetaPrivateKey = 'YOUR_THETA_PRIVATE_KEY';
+
+    uploadForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const videoFile = videoFileInput.files[0];
+
+      // Upload video to Theta platform using Theta API
+      const videoUploadResponse = await uploadVideoToTheta(videoFile);
+
+      if (videoUploadResponse.success) {
+        // Retrieve the video as an NFT from Theta platform
+        const videoNftResponse = await getVideoAsNft(videoUploadResponse.videoId);
+
+        if (videoNftResponse.success) {
+          // Display the video using HTML video element
+          displayVideo(videoNftResponse.videoUrl);
+        } else {
+          console.error('Failed to retrieve video as NFT:', videoNftResponse.error);
+        }
+      } else {
+        console.error('Failed to upload video to Theta:', videoUploadResponse.error);
+      }
+    });
+
+    async function uploadVideoToTheta(videoFile) {
+      try {
+        const formData = new FormData();
+        formData.append('file', videoFile);
+
+        const response = await fetch('YOUR_BACKEND_UPLOAD_ENDPOINT', {
+          method: 'POST',
+          body: formData
+        });
+
+        const uploadResult = await response.json();
+
+        return {
+          success: true,
+          videoId: uploadResult.videoId
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: error.message
+        };
+      }
+    }
+
+    async function getVideoAsNft(videoId) {
+      try {
+        const theta = new Theta(thetaAPIEndpoint);
+        await theta.connect();
+
+        const videoResult = await theta.Video.getVideo(videoId);
+        const videoUrl = videoResult.videoData;
+
+        return {
+          success: true,
+          videoUrl: videoUrl
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: error.message
+        };
+      }
+    }
+
+    function displayVideo(videoUrl) {
+      const videoElement = document.createElement('video');
+      videoElement.src = videoUrl;
+      videoElement.controls = true;
+
+      videoPlayerContainer.innerHTML = '';
+      videoPlayerContainer.appendChild(videoElement);
+    }
+
+
+
+    // Import the Theta.js library
+const { Theta } = require('theta-js');
+
+// Set the Theta network endpoint
+const thetaEndpoint = 'https://api.thetatoken.org';
+
+// Set the user's Theta wallet address and private key
+const userWalletAddress = 'USER_WALLET_ADDRESS';
+const userPrivateKey = 'USER_PRIVATE_KEY';
+
+// Function to get the TFuel balance of a user
+async function getTFuelBalance() {
+  try {
+    const theta = new Theta(thetaEndpoint);
+    await theta.connect();
+
+    const balance = await theta.Wallet.getTFuelBalance(userWalletAddress);
+
+    return balance;
+  } catch (error) {
+    console.error('Failed to get TFuel balance:', error);
+    return null;
+  }
+}
+
+// Function to send TFuel to a user
+async function sendTFuel(receiverAddress, amount) {
+  try {
+    const theta = new Theta(thetaEndpoint);
+    await theta.connect();
+
+    const txHash = await theta.Wallet.sendTFuel(userWalletAddress, userPrivateKey, receiverAddress, amount);
+
+    return txHash;
+  } catch (error) {
+    console.error('Failed to send TFuel:', error);
+    return null;
+  }
+}
+
+// Example usage
+async function main() {
+  // Get the TFuel balance of the user
+  const balance = await getTFuelBalance();
+  console.log('TFuel Balance:', balance);
+
+  // Send TFuel to another user
+  const receiverAddress = 'RECEIVER_WALLET_ADDRESS';
+  const amountToSend = 10; // Specify the amount of TFuel to send
+  const txHash = await sendTFuel(receiverAddress, amountToSend);
+  console.log('Transaction Hash:', txHash);
+}
+
+main();
+
+
+
+
+const thetaAPIEndpoint = 'https://api.thetatoken.org';
+    const thetaWalletAddress = 'YOUR_THETA_WALLET_ADDRESS';
+    const thetaPrivateKey = 'YOUR_THETA_PRIVATE_KEY';
+
+    const getTFuelBtn = document.getElementById('getTFuelBtn');
+    const balanceContainer = document.getElementById('balance');
+
+    getTFuelBtn.addEventListener('click', async () => {
+      const theta = new Theta(thetaAPIEndpoint);
+      await theta.connect();
+
+      const tfuelBalance = await theta.Wallet.getTFuelBalance(thetaWalletAddress);
+      balanceContainer.textContent = tfuelBalance.toString();
+    });
+  </script>
+</body>
+</html>
