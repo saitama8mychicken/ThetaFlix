@@ -26,16 +26,20 @@
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+    <script src='https://vjs.zencdn.net/7.15.4/video.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@0.12.4"></script>
+    <script src="https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js"></script>
+    <script src="https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js"></script>
+    <script src="https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js"></script>
     <title>THETAFLIX</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <video width="320" height="240" id="root" controls></video>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -47,4 +51,28 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+    const optionalHlsOpts = null;
+    const optionalThetaOpts = {
+      allowRangeRequests: true, // false if cdn does not support range headers  
+    };
+    const player = window.player = videojs('my-player', {
+            techOrder: ["theta_hlsjs", "html5"],
+            sources: [{
+              src: "YOUR_VIDEO_URL",
+              type: "application/vnd.apple.mpegurl",
+              label: "1080p"
+            }],
+            theta_hlsjs: {
+                videoId: "YOUR_INTERNAL_VIDEO_ID",
+                userId: "YOUR_AUTHED_USER_ID (optional)", 
+                walletUrl: "wss://api-wallet-service.thetatoken.org/theta/ws",
+                onWalletAccessToken: getWalletAccessToken,
+                onThetaReady: null, // optional listener
+                onStreamReady: null, // optional listener
+                hlsOpts: optionalHlsOpts,
+                thetaOpts: optionalThetaOpts,
+            }
+        });
+  </script>
 </html>

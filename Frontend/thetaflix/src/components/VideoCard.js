@@ -34,7 +34,7 @@ const VideoCard = ({ video }) => {
   const getVideoViewsAndDuration = async () => {
     const response = await fetch(
       BASE_URL +
-        `/videos?part=contentDetails%2Cstatistics&id=${_videoId}&key=${process.env.REACT_APP_GOOGLE_API_KEY_3}`
+        `/videos?part=contentDetails%2Cstatistics&id=srvacc_3z8e4t0g2jkfr57xsz3gqvpj0&key=video_kzh225ce37vvpsjvpqt8kh8ki5`
     );
     const data = await response.json();
     return data.items[0];
