@@ -89,12 +89,12 @@ const SideBarExpanded = () => {
           </div>
           <div className="subscriptions py-2 px-4  flex items-center  hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full rounded-lg cursor-pointer">
             <MdOutlineSubscriptions size="1.5rem" className="mb-1 mr-4" />
-            <span>Subscriptions</span>
+            <span>Theta Wallet</span>
           </div>
           <div className="pt-3 border-b border-zinc-200 w-full"></div>
           <div className="library py-2 mt-4 px-4 flex items-center hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full rounded-lg  cursor-pointer">
             <MdOutlineVideoLibrary size="1.5rem" className="mb-1 mr-4" />
-            <span>Library</span>
+            <span>NFT Library</span>
           </div>
           <div className="History py-2 px-4 flex items-center hover:bg-zinc-100 dark:hover:bg-zinc-700 w-full rounded-lg  cursor-pointer">
             <MdOutlineHistory size="1.5rem" className="mb-1 mr-4" />
