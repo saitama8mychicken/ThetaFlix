@@ -1,6 +1,5 @@
 
-![Logo](https://i.imgur.com/a1Ck04B.png)
-
+THETAFLIX
 
 # 🎉 THETAFLIX
 THETAFLIX is a web application built using React.js that allows users to watch and upload videos. It is similar to YouTube and uses the Theta Network API to show videos and provide an experience similar to YouTube. The application also comes with features such as a video summarizer using Chat GPT, cache network calls using React Query to reduce the number of requests to the API, a highly optimized search feature using debouncing and caching, responsive design, and dark mode.
@@ -49,16 +48,12 @@ THETAFLIX comes with a built-in dark mode feature that allows users to switch be
 ## 👍 Screenshots
 
 
-![App Screenshot](https://i.imgur.com/s5Jt9CT.png)
-
-
 ## ➡️ Getting Started
 To get started with the THETAFLIX application, follow these steps:
 
     1. Clone the repository: git clone https://github.com/chinmay021/THETAFLIX.git
     2. Install the dependencies: npm install [Works well with node 16.10.0]
     3. Start the application: npm start
-![install](https://i.imgur.com/KS3thn0.png)
 ## 🤝 Contribution
 
 Contributions are always welcome!\
