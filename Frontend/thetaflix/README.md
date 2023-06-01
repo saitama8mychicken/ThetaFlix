@@ -51,7 +51,7 @@ THETAFLIX comes with a built-in dark mode feature that allows users to switch be
 ## ➡️ Getting Started
 To get started with the THETAFLIX application, follow these steps:
 
-    1. Clone the repository: git clone https://github.com/chinmay021/THETAFLIX.git
+    1. Clone the repository: git clone [https://github.com/chinmay021/THETAFLIX.git](https://github.com/saitama8mychicken/ThetaFlix/blob/frontend/Frontend/thetaflix/README.md)
     2. Install the dependencies: npm install [Works well with node 16.10.0]
     3. Start the application: npm start
 ## 🤝 Contribution
